@@ -8,10 +8,16 @@
         Title="MainWindow" Height="450" Width="600" FontSize="15">
     <Grid>
         <Button x:Name="Button_Book"
-                Content="Add book"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Padding="15 10"
-                Click="Button_OnClick"></Button>
+                Click="Button_OnClick">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Images/add.png"
+                        Height="18"
+                        Margin="0 0 10 0"/>
+                <TextBlock Text="Add Book"/>
+            </StackPanel>
+        </Button>
     </Grid>
 </Window>
