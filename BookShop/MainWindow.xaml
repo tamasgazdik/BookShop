@@ -5,19 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookShop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="600" FontSize="15">
+        Title="MainWindow" Height="500" Width="800" FontSize="20"
+        d:DesignHeight="400" d:DesignWidth="650" >
     <Grid>
-        <Button x:Name="Button_Book"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Padding="15 10"
-                Click="Button_OnClick">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="/Images/add.png"
-                        Height="18"
-                        Margin="0 0 10 0"/>
-                <TextBlock Text="Add Book"/>
-            </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <Rectangle Grid.Row="1"
+                   Fill="LightBlue"
+                   Width="100"
+                   Height="50"
+                   HorizontalAlignment="Right"/>
+        <Button x:Name="myButton"
+                Width="100"
+                Height="50"
+                Content="Hello!"
+                Click="myButton_Click">
+            <Grid.Row>1</Grid.Row>
         </Button>
+
     </Grid>
 </Window>
