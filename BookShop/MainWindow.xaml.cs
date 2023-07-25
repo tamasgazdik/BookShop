@@ -25,13 +25,13 @@ namespace BookShop
             InitializeComponent();
         }
 
-        private void myButton_Click(object sender, RoutedEventArgs e)
+        private void MyButton_Click(object sender, RoutedEventArgs e)
         {
-            var row = Grid.GetRow(myButton);
-            var column = Grid.GetColumn(myButton);
+            var row = Grid.GetRow(MyButton);
+            var column = Grid.GetColumn(MyButton);
 
-            Grid.SetColumn(myButton, column == 1 ? 0 : 1);
-            Grid.SetRow(myButton, row == 1 ? 0 : 1);
+            Grid.SetColumn(MyButton, column == 1 ? 0 : 1);
+            Grid.SetRow(MyButton, row == 1 ? 0 : 1);
         }
     }
 }

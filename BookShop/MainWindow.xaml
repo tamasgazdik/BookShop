@@ -16,17 +16,18 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        
+
         <Rectangle Grid.Row="1"
                    Fill="LightBlue"
                    Width="100"
-                   Height="50"
+                   Height="50" 
                    HorizontalAlignment="Right"/>
-        <Button x:Name="myButton"
+        <Button Grid.Column="0" 
+                x:Name="MyButton"
                 Width="100"
                 Height="50"
                 Content="Hello!"
-                Click="myButton_Click">
+                Click="MyButton_Click">
             <Grid.Row>1</Grid.Row>
         </Button>
 
