@@ -1,19 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.Data.Common;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using WiredBrainCoffee.CustomersApp.Data;
 using WiredBrainCoffee.CustomersApp.Model;
 
 namespace WiredBrainCoffee.CustomersApp.ViewModel
 {
-    public class CustomersViewModel : INotifyPropertyChanged
+    internal class CustomersViewModel : ViewModelBase
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        public Customer? SelectedCustomer
+        public CustomerItemViewModel? SelectedCustomer
         {
             get => mySelectedCustomer;
             set
@@ -23,7 +19,7 @@ namespace WiredBrainCoffee.CustomersApp.ViewModel
             }
         }
 
-        public ObservableCollection<Customer> Customers { get; } = new ObservableCollection<Customer>();
+        public ObservableCollection<CustomerItemViewModel> Customers { get; } = new ObservableCollection<CustomerItemViewModel>();
 
         public CustomersViewModel(ICustomerDataProvider customerDataProvider)
         {
@@ -42,37 +38,48 @@ namespace WiredBrainCoffee.CustomersApp.ViewModel
             {
                 foreach (var customer in customers)
                 {
-                    Customers.Add(customer);
+                    Customers.Add(new CustomerItemViewModel(customer));
                 } 
             }
         }
 
-        public void Add(Customer? customer)
+        public void Add()
         {
-            var newCustomer = customer ?? new Customer
+            var customer = new Customer
             {
                 FirstName = "New",
                 LastName = "Customer"
             };
 
-            Customers.Add(newCustomer);
-            SelectedCustomer = newCustomer;
-        }
-        
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            var customerViewModel = new CustomerItemViewModel(customer);
+
+            Customers.Add(customerViewModel);
+            SelectedCustomer = customerViewModel;
         }
 
-        protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
+        internal void MoveNavigation()
         {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName);
-            return true;
+            NavigationSide = NavigationSide == NavigationSide.Left ? NavigationSide.Right : NavigationSide.Left;
         }
 
-        private Customer? mySelectedCustomer;
+        public NavigationSide NavigationSide
+        {
+            get => myNavigationSide;
+            set
+            {
+                myNavigationSide = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private NavigationSide myNavigationSide;
+        private CustomerItemViewModel? mySelectedCustomer;
         private ICustomerDataProvider myCustomerDataProvider;
+    }
+
+    public enum NavigationSide
+    {
+        Left, 
+        Right
     }
 }
