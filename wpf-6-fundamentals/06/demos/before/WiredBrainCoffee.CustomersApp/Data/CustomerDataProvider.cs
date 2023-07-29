@@ -22,7 +22,9 @@ namespace WiredBrainCoffee.CustomersApp.Data
         new Customer{Id=3, FirstName="Thomas Claudius",LastName="Huber",IsDeveloper=true},
         new Customer{Id=4,FirstName="Anna",LastName="Rockstar"},
         new Customer{Id=5,FirstName="Sara",LastName="Metroid"},
-        new Customer{Id=6,FirstName="Ben",LastName="Ronaldo"}
+        new Customer{Id=6,FirstName="Ben",LastName="Ronaldo"},
+        new Customer{Id=7,FirstName="Gazdik",LastName="Tamas", IsDeveloper = true},
+        new Customer{Id=8,FirstName="Lili",LastName="Kutya"}
       };
     }
   }
