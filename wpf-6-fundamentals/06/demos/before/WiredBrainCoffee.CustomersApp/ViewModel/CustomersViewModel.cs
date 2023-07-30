@@ -19,9 +19,12 @@ namespace WiredBrainCoffee.CustomersApp.ViewModel
             {
                 mySelectedCustomer = value!;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(IsCustomerSelected));
                 DeleteCommand.RaiseCanExecuteChanged();
             }
         }
+
+        public bool IsCustomerSelected => SelectedCustomer != null;
 
         public ObservableCollection<CustomerItemViewModel> Customers { get; } = new ObservableCollection<CustomerItemViewModel>();
 
@@ -74,7 +77,7 @@ namespace WiredBrainCoffee.CustomersApp.ViewModel
         #region private methods
         private void Add(object? parameter)
         {
-            MessageBox.Show("Add customer motherfucker");
+            MessageBox.Show("Added customer...");
             var customer = new Customer
             {
                 FirstName = "New",
