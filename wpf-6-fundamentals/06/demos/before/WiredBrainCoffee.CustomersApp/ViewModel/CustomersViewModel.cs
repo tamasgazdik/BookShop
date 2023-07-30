@@ -2,6 +2,8 @@
 using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
+using WiredBrainCoffee.CustomersApp.Command;
 using WiredBrainCoffee.CustomersApp.Data;
 using WiredBrainCoffee.CustomersApp.Model;
 
@@ -9,6 +11,7 @@ namespace WiredBrainCoffee.CustomersApp.ViewModel
 {
     internal class CustomersViewModel : ViewModelBase
     {
+        #region properties
         public CustomerItemViewModel? SelectedCustomer
         {
             get => mySelectedCustomer;
@@ -16,16 +19,40 @@ namespace WiredBrainCoffee.CustomersApp.ViewModel
             {
                 mySelectedCustomer = value!;
                 OnPropertyChanged();
+                DeleteCommand.RaiseCanExecuteChanged();
             }
         }
 
         public ObservableCollection<CustomerItemViewModel> Customers { get; } = new ObservableCollection<CustomerItemViewModel>();
 
+        public NavigationSide NavigationSide
+        {
+            get => myNavigationSide;
+            set
+            {
+                myNavigationSide = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public DelegateCommand AddCommand { get; set; }
+
+        public DelegateCommand MoveNavigationCommand { get; set; }
+
+        public DelegateCommand DeleteCommand { get; set; }
+        #endregion
+
+        #region constructor
         public CustomersViewModel(ICustomerDataProvider customerDataProvider)
         {
             myCustomerDataProvider = customerDataProvider;
+            AddCommand = new DelegateCommand(Add);
+            MoveNavigationCommand = new DelegateCommand(MoveNavigation);
+            DeleteCommand = new DelegateCommand(Delete, CanDelete);
         }
+        #endregion
 
+        #region public methods
         public async Task LoadAsync()
         {
             if (Customers.Any())
@@ -39,12 +66,15 @@ namespace WiredBrainCoffee.CustomersApp.ViewModel
                 foreach (var customer in customers)
                 {
                     Customers.Add(new CustomerItemViewModel(customer));
-                } 
+                }
             }
         }
+        #endregion
 
-        public void Add()
+        #region private methods
+        private void Add(object? parameter)
         {
+            MessageBox.Show("Add customer motherfucker");
             var customer = new Customer
             {
                 FirstName = "New",
@@ -57,24 +87,32 @@ namespace WiredBrainCoffee.CustomersApp.ViewModel
             SelectedCustomer = customerViewModel;
         }
 
-        internal void MoveNavigation()
+        private void MoveNavigation(object? parameter)
         {
             NavigationSide = NavigationSide == NavigationSide.Left ? NavigationSide.Right : NavigationSide.Left;
         }
 
-        public NavigationSide NavigationSide
+        private void Delete(object? parameter)
         {
-            get => myNavigationSide;
-            set
+            if (SelectedCustomer != null)
             {
-                myNavigationSide = value;
-                OnPropertyChanged();
+                Customers.Remove(SelectedCustomer);
+                SelectedCustomer = null;
             }
         }
 
+        private bool CanDelete(object? parameter)
+        {
+            return SelectedCustomer is not null;
+        }
+        #endregion
+
+        #region private fields
         private NavigationSide myNavigationSide;
         private CustomerItemViewModel? mySelectedCustomer;
         private ICustomerDataProvider myCustomerDataProvider;
+        #endregion
+
     }
 
     public enum NavigationSide

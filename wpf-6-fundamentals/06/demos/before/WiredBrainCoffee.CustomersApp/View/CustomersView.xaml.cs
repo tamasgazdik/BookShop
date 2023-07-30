@@ -20,16 +20,6 @@ namespace WiredBrainCoffee.CustomersApp.View
             await myCustomersViewModel.LoadAsync();
         }
 
-        private void ButtonMoveNavigation_Click(object sender, RoutedEventArgs e)
-        {
-            myCustomersViewModel.MoveNavigation();
-        }
-
-        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
-        {
-            myCustomersViewModel.Add();
-        }
-
         private CustomersViewModel myCustomersViewModel;    
     }
 }
