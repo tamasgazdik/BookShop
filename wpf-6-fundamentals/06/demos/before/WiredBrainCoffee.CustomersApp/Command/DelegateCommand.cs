@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace WiredBrainCoffee.CustomersApp.Command
 {
-    class DelegateCommand : ICommand
+    public class DelegateCommand : ICommand
     {
         private readonly Action<object?> myAction;
         private readonly Func<object?, bool>? myCanExecute;

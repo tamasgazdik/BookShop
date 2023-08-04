@@ -2,7 +2,7 @@
 
 namespace WiredBrainCoffee.CustomersApp.ViewModel
 {
-    internal class CustomerItemViewModel : ViewModelBase
+    public class CustomerItemViewModel : ViewModelBase
     {
         public int Id => myCustomer.Id;
 

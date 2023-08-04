@@ -18,7 +18,9 @@ namespace WiredBrainCoffee.CustomersApp.Converter
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            var column = (int) value;
+
+            return column == 0 ? NavigationSide.Left : NavigationSide.Right;
         }
     }
 }

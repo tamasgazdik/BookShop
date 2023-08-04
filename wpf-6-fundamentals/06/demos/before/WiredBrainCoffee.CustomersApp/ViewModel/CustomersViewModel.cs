@@ -9,7 +9,7 @@ using WiredBrainCoffee.CustomersApp.Model;
 
 namespace WiredBrainCoffee.CustomersApp.ViewModel
 {
-    internal class CustomersViewModel : ViewModelBase
+    public class CustomersViewModel : ViewModelBase
     {
         #region properties
         public CustomerItemViewModel? SelectedCustomer
@@ -56,7 +56,7 @@ namespace WiredBrainCoffee.CustomersApp.ViewModel
         #endregion
 
         #region public methods
-        public async Task LoadAsync()
+        public override async Task LoadAsync()
         {
             if (Customers.Any())
             {
