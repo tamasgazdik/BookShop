@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using WiredBrainCoffee.CustomersApp.Command;
 
 namespace WiredBrainCoffee.CustomersApp.ViewModel
 {
@@ -14,10 +15,19 @@ namespace WiredBrainCoffee.CustomersApp.ViewModel
             }
         }
 
-        public MainViewModel(CustomersViewModel customersViewModel)
+        public CustomersViewModel CustomersViewModel { get; }
+
+        public ProductsViewModel ProductsViewModel { get; }
+
+        public DelegateCommand SelectViewModelCommand { get; }
+
+        public MainViewModel(CustomersViewModel customersViewModel,
+            ProductsViewModel productsViewModel)
         {
-            myCustomersViewModel = customersViewModel;
-            SelectedViewModel = myCustomersViewModel;
+            CustomersViewModel = customersViewModel;
+            ProductsViewModel = productsViewModel;
+            SelectedViewModel = CustomersViewModel;
+            SelectViewModelCommand = new DelegateCommand(SelectViewModel);
         }
 
         public override async Task LoadAsync()
@@ -28,7 +38,12 @@ namespace WiredBrainCoffee.CustomersApp.ViewModel
             }
         }
 
-        private readonly CustomersViewModel myCustomersViewModel;
+        private async void SelectViewModel(object? parameter)
+        {
+            SelectedViewModel = parameter as ViewModelBase;
+            await LoadAsync();
+        }
+        
         private ViewModelBase? mySelectedViewModelBase;
     }
 }
