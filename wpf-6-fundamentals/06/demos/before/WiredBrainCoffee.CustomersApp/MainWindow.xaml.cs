@@ -6,10 +6,10 @@ namespace WiredBrainCoffee.CustomersApp
 {
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(MainViewModel mainViewModel)
         {
             InitializeComponent();
-            myMainViewModel = new MainViewModel(new CustomersViewModel(new CustomerDataProvider()), new ProductsViewModel());
+            myMainViewModel = mainViewModel;
             DataContext = myMainViewModel;
             Loaded += MainWindow_Loaded;
         }
